@@ -155,6 +155,9 @@ public partial class MainWindow : Window
         Precedent.Count = 0;
         Actor.Count = 0;
         Relation.Count = 0;
+
+        AddActor.Count = 0;
+        AddActor.Canvas = new Canvas();
     }
 
     /// <summary>

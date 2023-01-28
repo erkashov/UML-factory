@@ -51,18 +51,33 @@ public class AddActor : IFigure
     public double ActualOffset { get; set; } = 20;
 
     /// <summary>
+    /// Gets or sets the count.
+    /// </summary>
+    /// <value>The count.</value>
+    public static int Count { get; set; }
+
+    /// <summary>
+    /// The canvas
+    /// </summary>
+    public static Canvas? Canvas = new();
+    
+    /// <summary>
     /// Draws this instance.
     /// </summary>
     /// <param name="element">The element.</param>
     /// <param name="panel">The panel.</param>
     /// <param name="numberOfElements">The number of elements.</param>
     /// <returns>StackPanel.</returns>
-    public Panel Draw(IElement element, Panel panel, int numberOfElements)
+    public void Draw(IElement element, Panel panel, int numberOfElements)
     {
         SizeAdaptation(panel, numberOfElements);
 
-        var canvas = new Canvas();
-        panel.Children.Add(canvas);
+        if (panel.Children.Count == 0)
+        {
+            if (Canvas != null) panel.Children.Add(Canvas);
+        }
+
+        if (Canvas == null) return;
 
         #region Circle
 
@@ -72,32 +87,42 @@ public class AddActor : IFigure
             Height = H,
             Stroke = Brushes.Black
         };
-        canvas.Children.Add(ellipse);
 
-        var count = canvas.Children.Count;
-        Canvas.SetLeft(canvas.Children[count - 1], panel.ActualWidth / 10 );
-        Canvas.SetTop(canvas.Children[count - 1], panel.ActualHeight * element.Id / numberOfElements);
+        Canvas.Children.Add(ellipse);
+
+        Count = Canvas.Children.Count;
+        Canvas.SetLeft(Canvas.Children[Count - 1], panel.ActualWidth / 10);
+        Canvas.SetTop(Canvas.Children[Count - 1], panel.ActualHeight * element.Id / numberOfElements);
 
         #endregion
 
         #region Triangle
+
         var triangle = new Polygon
         {
             Points = new PointCollection
             {
-                new Point(panel.ActualWidth / 10 - W / 2, panel.ActualHeight * element.Id / numberOfElements + 2 * H),
+                new Point(panel.ActualWidth / 10 - W / 2,
+                    panel.ActualHeight * element.Id / numberOfElements + 2 * H),
                 new Point(panel.ActualWidth / 10 + W / 2, panel.ActualHeight * element.Id / numberOfElements + H),
-                new Point(panel.ActualWidth / 10 + (W*3)/2, panel.ActualHeight * element.Id / numberOfElements + 2 * H)
+                new Point(panel.ActualWidth / 10 + (W * 3) / 2,
+                    panel.ActualHeight * element.Id / numberOfElements + 2 * H)
             },
             Stroke = Brushes.Black
         };
 
-        canvas.Children.Add(triangle);
-        Canvas.SetLeft(canvas.Children[count], panel.ActualWidth / 10 + ellipse.Width/2 - triangle.Width / 2 );
-        Canvas.SetTop(canvas.Children[count], panel.ActualHeight * element.Id  / numberOfElements + triangle.Width * 2 );
+        Canvas.Children.Add(triangle);
+        element.X = panel.ActualWidth / 10 + ellipse.Width / 2 - (triangle.Points[2].X + triangle.Points[0].X) / 2;
+        element.Y = panel.ActualHeight * element.Id / numberOfElements;
+
+        Count = Canvas.Children.Count;
+        Canvas.SetLeft(Canvas.Children[Count - 1], element.X);
+        Canvas.SetTop(Canvas.Children[Count - 1], 0);
+
         #endregion
 
         #region TextBlock
+
         var textBlock = new TextBlock()
         {
             Name = "textBlock" + element.Id,
@@ -107,14 +132,17 @@ public class AddActor : IFigure
             Height = H,
             FontSize = ActualFontSize
         };
-        canvas.Children.Add(textBlock);
+        Canvas.Children.Add(textBlock);
 
-        Canvas.SetLeft(canvas.Children[count+1], panel.ActualWidth / 10 + ellipse.Width / 2 - textBlock.Width / 2);
-        Canvas.SetTop(canvas.Children[count+1], panel.ActualHeight * element.Id / numberOfElements + ellipse.Height*2.5 - textBlock.Height/2);
+        Count = Canvas.Children.Count;
+        Canvas.SetLeft(Canvas.Children[Count - 1],
+            panel.ActualWidth / 10 + ellipse.Width / 2 - textBlock.Width / 2);
+        Canvas.SetTop(Canvas.Children[Count - 1],
+            panel.ActualHeight * element.Id / numberOfElements + ellipse.Height * 2.5 - textBlock.Height / 2);
+
         #endregion
-        
+
         //todo: Добавить текст к актору 
-        return canvas;      
     }
 
     /// <summary>

@@ -53,7 +53,7 @@ public class AddPrecedent : IFigure
     /// <param name="panel">The panel.</param>
     /// <param name="numberOfElements">The number of elements.</param>
     /// <returns>StackPanel.</returns>
-    public Panel Draw(IElement element, Panel panel, int numberOfElements)
+    public void Draw(IElement element, Panel panel, int numberOfElements)
     {
         SizeAdaptation(panel, numberOfElements);
 
@@ -97,8 +97,6 @@ public class AddPrecedent : IFigure
         Canvas.SetTop(canvas.Children[count], panel.ActualHeight * element.Id / numberOfElements + ellipse.Height / 2 - textBlock.Height / 2);
 
         #endregion
-
-        return canvas;
     }
 
     /// <summary>Sizes the adaptation.</summary>

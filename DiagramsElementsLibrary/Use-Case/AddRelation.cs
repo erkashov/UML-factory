@@ -56,7 +56,7 @@ public class AddRelation : IFigure
     /// <param name="panel">The panel.</param>
     /// <param name="numberOfElements">The number of elements.</param>
     /// <returns>StackPanel.</returns>
-    public Panel Draw(IElement element, Panel panel, int numberOfElements)
+    public void Draw(IElement element, Panel panel, int numberOfElements)
     {
         var canvas = new Canvas();
         panel.Children.Add(canvas);
@@ -71,6 +71,5 @@ public class AddRelation : IFigure
         var count = canvas.Children.Count;
       
         #endregion
-        return canvas;
     }
 }
