@@ -28,13 +28,21 @@ public partial class MainWindow : Window
     /// </summary>
     private Diagram? _diagram = new() { Elements = new List<IElement?>()};
 
+    /// <summary>
+    /// The figure service
+    /// </summary>
     private readonly FigureService _figureService;
 
+    /// <summary>
+    /// The json service
+    /// </summary>
     private readonly JsonService _jsonService;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="MainWindow"/> class.
+    /// Initializes a new instance of the <see cref="MainWindow" /> class.
     /// </summary>
+    /// <param name="figureService">The figure service.</param>
+    /// <param name="jsonService">The json service.</param>
     public MainWindow(FigureService figureService, JsonService jsonService)
     {
         _figureService = figureService;
@@ -42,6 +50,9 @@ public partial class MainWindow : Window
         InitializeComponent();
     }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="MainWindow"/> class.
+    /// </summary>
     public MainWindow()
     {
         InitializeComponent();
@@ -63,7 +74,7 @@ public partial class MainWindow : Window
     /// Handles the KeyDown event of the TbConsole control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="KeyEventArgs"/> instance containing the event data.</param>
+    /// <param name="e">The <see cref="KeyEventArgs" /> instance containing the event data.</param>
     private async void TbConsole_KeyDown(object sender, KeyEventArgs e)
     {
         switch (e.Key)
@@ -91,6 +102,9 @@ public partial class MainWindow : Window
         }
     }
 
+    /// <summary>
+    /// Saves the images.
+    /// </summary>
     private void SaveImages()
     {
         var saves = new Microsoft.Win32.SaveFileDialog
@@ -104,6 +118,9 @@ public partial class MainWindow : Window
         }
     }
 
+    /// <summary>
+    /// Draws the figures.
+    /// </summary>
     private void DrawFigures()
     {
         ClearWhenRestarting();
@@ -114,7 +131,7 @@ public partial class MainWindow : Window
             var regex = new Regex(@".+\+.+");
             var matchCollection = regex.Matches(command);
 
-            _diagram.Elements?.Add(matchCollection.Count == 0
+            _diagram?.Elements?.Add(matchCollection.Count == 0
                 ? AddCommandService.AddCommandAction(command)
                 : AddRelationService.AddRelationAction(command, _diagram));
         }
@@ -122,7 +139,9 @@ public partial class MainWindow : Window
         DrawShapes();
     }
 
-    /// <summary>Clears the when restarting.</summary>
+    /// <summary>
+    /// Clears the when restarting.
+    /// </summary>
     private void ClearWhenRestarting()
     {
         ImgDiagram.Children.Clear();
@@ -131,7 +150,9 @@ public partial class MainWindow : Window
         Actor.Count = 0;
     }
 
-    /// <summary>Draws the shapes.</summary>
+    /// <summary>
+    /// Draws the shapes.
+    /// </summary>
     private void DrawShapes()
     {
         if (_diagram?.Elements == null) return;

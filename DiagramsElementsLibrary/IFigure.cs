@@ -13,21 +13,25 @@ public interface IFigure
     /// </summary>
     /// <value>The x.</value>
     double X { get; set; }
+
     /// <summary>
     /// Gets or sets the y.
     /// </summary>
     /// <value>The y.</value>
     double Y { get; set; }
+
     /// <summary>
     /// Gets or sets the w.
     /// </summary>
     /// <value>The w.</value>
     double W { get; set; }
+
     /// <summary>
     /// Gets or sets the h.
     /// </summary>
     /// <value>The h.</value>
     double H { get; set; }
+
     /// <summary>
     /// Draws this instance.
     /// </summary>

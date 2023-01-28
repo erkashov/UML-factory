@@ -19,9 +19,9 @@ public class AddRelationService
         var newElement = new Relation()
         {
             Id = 0,
-            Name = (diagram.Elements.Find(e => e.Name == pair[0]) as Actor)?.Name + "+" + (diagram.Elements.Find(e => e.Name == pair[1]) as Precedent)?.Name,
-            Actor = diagram.Elements.Find(e => e.Name == pair[0]) as Actor,
-            Precedent = diagram.Elements.Find(e => e.Name == pair[1]) as Precedent
+            Name = (diagram.Elements.Find(e => e?.Name == pair[0]) as Actor)?.Name + "+" + (diagram.Elements.Find(e => e.Name == pair[1]) as Precedent)?.Name,
+            Actor = diagram.Elements.Find(e => e?.Name == pair[0]) as Actor,
+            Precedent = diagram.Elements.Find(e => e?.Name == pair[1]) as Precedent
         };
         return newElement;
     }

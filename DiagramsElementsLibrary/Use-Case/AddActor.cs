@@ -7,14 +7,56 @@ using Commands.Use_Case;
 
 namespace DiagramsElementsLibrary.Use_Case;
 
+/// <summary>
+/// Class AddActor.
+/// Implements the <see cref="DiagramsElementsLibrary.IFigure" />
+/// </summary>
+/// <seealso cref="DiagramsElementsLibrary.IFigure" />
 public class AddActor : IFigure
 {
+    /// <summary>
+    /// Gets or sets the x.
+    /// </summary>
+    /// <value>The x.</value>
     public double X { get; set; }
+
+    /// <summary>
+    /// Gets or sets the y.
+    /// </summary>
+    /// <value>The y.</value>
     public double Y { get; set; }
+
+    /// <summary>
+    /// Gets or sets the w.
+    /// </summary>
+    /// <value>The w.</value>
     public double W { get; set; } = 30;
+
+    /// <summary>
+    /// Gets or sets the h.
+    /// </summary>
+    /// <value>The h.</value>
     public double H { get; set; } = 30;
+
+    /// <summary>
+    /// Gets or sets the actual size of the font.
+    /// </summary>
+    /// <value>The actual size of the font.</value>
     public double ActualFontSize { get; set; } = 12;
+
+    /// <summary>
+    /// Gets or sets the actual offset.
+    /// </summary>
+    /// <value>The actual offset.</value>
     public double ActualOffset { get; set; } = 20;
+
+    /// <summary>
+    /// Draws this instance.
+    /// </summary>
+    /// <param name="element">The element.</param>
+    /// <param name="panel">The panel.</param>
+    /// <param name="numberOfElements">The number of elements.</param>
+    /// <returns>StackPanel.</returns>
     public Panel Draw(IElement element, Panel panel, int numberOfElements)
     {
         SizeAdaptation(panel, numberOfElements);
@@ -63,11 +105,16 @@ public class AddActor : IFigure
         Canvas.SetLeft(canvas.Children[count+1], panel.ActualWidth / 10 + ellipse.Width / 2 - textBlock.Width / 2);
         Canvas.SetTop(canvas.Children[count+1], panel.ActualHeight * element.Id / numberOfElements + ellipse.Height*2.5 - textBlock.Height/2);
         #endregion
-
-
-        ///Добавить текст к актору 
+        
+        //todo: Добавить текст к актору 
         return canvas;      
     }
+
+    /// <summary>
+    /// Sizes the adaptation.
+    /// </summary>
+    /// <param name="panel">The panel.</param>
+    /// <param name="numberOfElements">The number of elements.</param>
     private void SizeAdaptation(FrameworkElement panel, int numberOfElements)
     {
         while (numberOfElements > (Convert.ToInt32(panel.ActualHeight / H) - 1))
