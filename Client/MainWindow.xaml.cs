@@ -1,16 +1,16 @@
-﻿using System;
+﻿using Client.Services.Figure;
+using Client.Services.File;
 using Commands.Services.Use_Case;
 using Commands.Use_Case;
 using DiagramsElementsLibrary.Save;
 using DiagramsElementsLibrary.Use_Case;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows;
-using Client.Services.Figure;
-using Client.Services.File;
 
 namespace Client;
 
@@ -52,7 +52,7 @@ public partial class MainWindow : Window
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="MainWindow"/> class.
+    /// Initializes a new instance of the <see cref="MainWindow" /> class.
     /// </summary>
     public MainWindow()
     {
@@ -143,6 +143,30 @@ public partial class MainWindow : Window
         }
 
         DrawShapes();
+
+        DrawSystemBoundary();
+    }
+
+    /// <summary>
+    /// Draws the system boundary.
+    /// </summary>
+    private void DrawSystemBoundary()
+    {
+        var element = _diagram?.Elements?.FindAll(e => e?.GetType() == typeof(Precedent)).FirstOrDefault()!;
+        
+        var systemBoundary = new SystemBoundary()
+        {
+            Id = 0,
+            Name = "System Boundary",
+            X = element.X,
+            Y = 0,
+            W = ((element as Precedent)!).W,
+            H = ImgDiagram.ActualHeight
+        };
+
+        _diagram?.Elements?.Add(systemBoundary);
+
+        (new AddSystemBoundary()).Draw(systemBoundary, ImgDiagram, 0);
     }
 
     /// <summary>
@@ -181,7 +205,7 @@ public partial class MainWindow : Window
             else if (element?.GetType() == typeof(Relation))
             {
                 (new AddRelation()).Draw(element, ImgDiagram, _diagram.Elements.Count - Actor.Count - Precedent.Count);
-            }            
+            }        
         }
     }
 }

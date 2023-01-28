@@ -74,6 +74,8 @@ public class AddPrecedent : IFigure
 
         element.X = panel.ActualWidth * 2 / 3;
         element.Y = panel.ActualHeight * element.Id / numberOfElements;
+        ((element as Precedent)!).W = W;
+        ((element as Precedent)!).H = H;
 
         Canvas.SetLeft(canvas.Children[count - 1], element.X);
         Canvas.SetTop(canvas.Children[count - 1], element.Y);
