@@ -78,6 +78,7 @@ public class AddPrecedent : IFigure
         Canvas.SetLeft(canvas.Children[count - 1], element.X);
         Canvas.SetTop(canvas.Children[count - 1], element.Y);
 
+        element.Y += H / 2; 
         #endregion
 
         #region TextBlock

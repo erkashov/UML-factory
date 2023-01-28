@@ -50,6 +50,11 @@ public class AddRelation : IFigure
     public double ActualOffset { get; set; } = 20;
 
     /// <summary>
+    /// The canvas
+    /// </summary>
+    public static Canvas? Canvas = new();
+
+    /// <summary>
     /// Draws this instance.
     /// </summary>
     /// <param name="element">The element.</param>
@@ -58,18 +63,15 @@ public class AddRelation : IFigure
     /// <returns>StackPanel.</returns>
     public void Draw(IElement element, Panel panel, int numberOfElements)
     {
-        var canvas = new Canvas();
-        panel.Children.Add(canvas);
-        #region Line
-        var relation = new Line();
-        relation.X1 = panel.ActualWidth / 20 + (W * 3) / 2;
-        relation.Y1 = 0-(panel.ActualHeight * element.Id / 2 / numberOfElements + 2 * H);
-        relation.X2 = panel.ActualWidth / 3;
-        relation.Y2 = panel.ActualHeight * element.Id / numberOfElements;
-        relation.Stroke = Brushes.Black;
-        canvas.Children.Add(relation);
-        var count = canvas.Children.Count;
-      
-        #endregion
+        var line = new Line()
+        {
+            X1 = ((element as Relation)!).Actor!.X,
+            X2 = ((element as Relation)!).Precedent!.X,
+            Y1 = ((element as Relation)!).Actor!.Y,
+            Y2 = ((element as Relation)!).Precedent!.Y,
+            Stroke = Brushes.Black
+        };
+
+        AddActor.Canvas?.Children.Add(line);
     }
 }

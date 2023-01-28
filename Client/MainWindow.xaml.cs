@@ -158,6 +158,8 @@ public partial class MainWindow : Window
 
         AddActor.Count = 0;
         AddActor.Canvas = new Canvas();
+        
+        AddRelation.Canvas = new Canvas();
     }
 
     /// <summary>

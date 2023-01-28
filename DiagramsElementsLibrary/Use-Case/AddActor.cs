@@ -119,6 +119,9 @@ public class AddActor : IFigure
         Canvas.SetLeft(Canvas.Children[Count - 1], element.X);
         Canvas.SetTop(Canvas.Children[Count - 1], 0);
 
+        element.X = triangle.Points[1].X;
+        element.Y = triangle.Points[1].Y;
+
         #endregion
 
         #region TextBlock
