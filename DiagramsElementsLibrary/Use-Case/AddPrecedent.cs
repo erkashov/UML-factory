@@ -19,6 +19,7 @@ public class AddPrecedent : IFigure
     /// </summary>
     /// <value>The x.</value>
     public double X { get; set; }
+
     /// <summary>
     /// Gets or sets the y.
     /// </summary>
@@ -44,6 +45,7 @@ public class AddPrecedent : IFigure
     /// <summary>Gets or sets the actual offset.</summary>
     /// <value>The actual offset.</value>
     public double ActualOffset { get; set; } = 20;
+
     /// <summary>
     /// Draws this instance.
     /// </summary>

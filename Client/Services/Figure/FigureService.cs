@@ -4,9 +4,16 @@ using DiagramsElementsLibrary.Use_Case;
 
 namespace Client.Services.Figure;
 
+/// <summary>
+/// Class FigureService.
+/// </summary>
 public class FigureService
 {
-    /// <summary>Draws the shapes.</summary>
+    /// <summary>
+    /// Draws the shapes.
+    /// </summary>
+    /// <param name="diagram">The diagram.</param>
+    /// <param name="ImgDiagram">The img diagram.</param>
     public void DrawShapes(Diagram? diagram, Panel ImgDiagram)
     {
         if (diagram?.Elements == null) 
