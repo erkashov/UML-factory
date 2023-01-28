@@ -71,8 +71,12 @@ public class AddPrecedent : IFigure
         canvas.Children.Add(ellipse);
 
         var count = canvas.Children.Count;
-        Canvas.SetLeft(canvas.Children[count - 1], panel.ActualWidth * 2 / 3);
-        Canvas.SetTop(canvas.Children[count - 1], panel.ActualHeight * element.Id / numberOfElements);
+
+        element.X = panel.ActualWidth * 2 / 3;
+        element.Y = panel.ActualHeight * element.Id / numberOfElements;
+
+        Canvas.SetLeft(canvas.Children[count - 1], element.X);
+        Canvas.SetTop(canvas.Children[count - 1], element.Y);
 
         #endregion
 

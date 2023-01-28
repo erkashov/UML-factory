@@ -79,17 +79,24 @@ public class AddActor : IFigure
         Canvas.SetTop(canvas.Children[count - 1], panel.ActualHeight * element.Id / numberOfElements);
 
         #endregion
+
         #region Triangle
-        var triangle = new Polygon();       
-        triangle.Points = new PointCollection();
-        triangle.Points.Add(new Point(panel.ActualWidth / 10 - W / 2, panel.ActualHeight * element.Id / numberOfElements  + 2*H));
-        triangle.Points.Add(new Point(panel.ActualWidth / 10 + W/2, panel.ActualHeight * element.Id / numberOfElements + H) );
-        triangle.Points.Add(new Point(panel.ActualWidth / 10 + (W*3)/2, panel.ActualHeight * element.Id / numberOfElements + 2 * H));
-        triangle.Stroke = Brushes.Black;
+        var triangle = new Polygon
+        {
+            Points = new PointCollection
+            {
+                new Point(panel.ActualWidth / 10 - W / 2, panel.ActualHeight * element.Id / numberOfElements + 2 * H),
+                new Point(panel.ActualWidth / 10 + W / 2, panel.ActualHeight * element.Id / numberOfElements + H),
+                new Point(panel.ActualWidth / 10 + (W*3)/2, panel.ActualHeight * element.Id / numberOfElements + 2 * H)
+            },
+            Stroke = Brushes.Black
+        };
+
         canvas.Children.Add(triangle);
         Canvas.SetLeft(canvas.Children[count], panel.ActualWidth / 10 + ellipse.Width/2 - triangle.Width / 2 );
         Canvas.SetTop(canvas.Children[count], panel.ActualHeight * element.Id  / numberOfElements + triangle.Width * 2 );
         #endregion
+
         #region TextBlock
         var textBlock = new TextBlock()
         {

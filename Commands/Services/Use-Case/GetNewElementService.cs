@@ -14,16 +14,21 @@ public class GetNewElementService
     /// <returns>Найденный элемент.</returns>
     public static IElement? GetNewElementAction(string[]? pair)
     {
-        if (pair?[0] == "Прецедент")
+        switch (pair?[0])
         {
-            Precedent.Count++;
-        }
-        if (pair?[0] == "Актор")
-        {
-            Actor.Count++;
+            case "Прецедент":
+                Precedent.Count++;
+                break;
+            case "Актор":
+                Actor.Count++;
+                break;
+            default:
+                break;
         }
 
-        return (pair?[0] == "Актор" ? new Actor() { Name = pair[1] } :
+        IElement? newElementAction = (pair?[0] == "Актор" ? new Actor() { Name = pair[1] } :
             pair?[0] == "Прецедент" ? new Precedent() { Name = pair[1] } : null);
+
+        return newElementAction;
     }
 }

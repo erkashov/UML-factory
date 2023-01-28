@@ -1,4 +1,5 @@
-﻿using Commands.Services.Use_Case;
+﻿using System;
+using Commands.Services.Use_Case;
 using Commands.Use_Case;
 using DiagramsElementsLibrary.Save;
 using DiagramsElementsLibrary.Use_Case;
@@ -128,6 +129,11 @@ public partial class MainWindow : Window
 
         foreach (var command in commandSet)
         {
+            if (command == string.Empty)
+            {
+                continue;
+            }
+
             var regex = new Regex(@".+\+.+");
             var matchCollection = regex.Matches(command);
 
@@ -148,6 +154,7 @@ public partial class MainWindow : Window
         _diagram?.Elements?.Clear();
         Precedent.Count = 0;
         Actor.Count = 0;
+        Relation.Count = 0;
     }
 
     /// <summary>
@@ -160,15 +167,15 @@ public partial class MainWindow : Window
         {
             if (element?.GetType() == typeof(Precedent))
             {
-                (new AddPrecedent()).Draw(element, ImgDiagram, _diagram.Elements.Count - Actor.Count);
+                (new AddPrecedent()).Draw(element, ImgDiagram, _diagram.Elements.Count - Actor.Count - Relation.Count);
             }
             else if (element?.GetType() == typeof(Actor))
             {
-                (new AddActor()).Draw(element, ImgDiagram, _diagram.Elements.Count - Precedent.Count);
+                (new AddActor()).Draw(element, ImgDiagram, _diagram.Elements.Count - Precedent.Count - Relation.Count);
             }
             else if (element?.GetType() == typeof(Relation))
             {
-                (new AddRelation()).Draw(element, ImgDiagram, _diagram.Elements.Count);
+                (new AddRelation()).Draw(element, ImgDiagram, _diagram.Elements.Count - Actor.Count - Precedent.Count);
             }            
         }
     }
