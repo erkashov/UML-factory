@@ -1,11 +1,11 @@
 ﻿namespace Commands.Use_Case;
 
 /// <summary>
-/// Class Precedent.
+/// Class SystemBoundary.
 /// Implements the <see cref="Commands.Use_Case.IElement" />
 /// </summary>
 /// <seealso cref="Commands.Use_Case.IElement" />
-public class Precedent : IElement
+public class SystemBoundary : IElement
 {
     /// <summary>
     /// Gets or sets the identifier.
@@ -42,18 +42,4 @@ public class Precedent : IElement
     /// </summary>
     /// <value>The h.</value>
     public double H { get; set; }
-
-    /// <summary>
-    /// Gets or sets the count.
-    /// </summary>
-    /// <value>The count.</value>
-    public static int Count { get; set; }
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="T:Commands.Use_Case.Precedent" /> class.
-    /// </summary>
-    public Precedent()
-    {
-        Id = Count - 1;
-    }
 }

@@ -131,7 +131,7 @@ public class AddActor : IFigure
             Name = "textBlock" + element.Id,
             Text = element.Name,
             TextAlignment = TextAlignment.Center,
-            Width = W,
+            Width = W * 1.25,
             Height = H,
             FontSize = ActualFontSize
         };
@@ -144,8 +144,6 @@ public class AddActor : IFigure
             panel.ActualHeight * element.Id / numberOfElements + ellipse.Height * 2.5 - textBlock.Height / 2);
 
         #endregion
-
-        //todo: Добавить текст к актору 
     }
 
     /// <summary>
@@ -155,6 +153,7 @@ public class AddActor : IFigure
     /// <param name="numberOfElements">The number of elements.</param>
     private void SizeAdaptation(FrameworkElement panel, int numberOfElements)
     {
+        //todo: Доделать адаптацию размера для фигуры актора
         while (numberOfElements > (Convert.ToInt32(panel.ActualHeight / H) - 1))
         {
             this.W *= 0.75;
