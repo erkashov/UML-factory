@@ -32,8 +32,8 @@ public partial class App : Application
     private void ConfigureServices(ServiceCollection services)
     {
         services.AddSingleton<MainWindow>();
-        services.AddSingleton<JsonService>();
-        services.AddSingleton<FigureService>();
+        services.AddSingleton<IFileService, JsonService>();
+        services.AddSingleton<IFigureService, FigureService>();
     }
 
     /// <summary>
