@@ -11,6 +11,8 @@ using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 
 namespace Client;
 
@@ -32,31 +34,38 @@ public partial class MainWindow : Window
     /// <summary>
     /// The figure service
     /// </summary>
-    private readonly FigureService _figureService;
+    private IFigureService? _figureService;
 
     /// <summary>
     /// The json service
     /// </summary>
-    private readonly JsonService _jsonService;
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="MainWindow" /> class.
-    /// </summary>
-    /// <param name="figureService">The figure service.</param>
-    /// <param name="jsonService">The json service.</param>
-    public MainWindow(FigureService figureService, JsonService jsonService)
-    {
-        _figureService = figureService;
-        _jsonService = jsonService;
-        InitializeComponent();
-    }
+    private IFileService? _jsonService;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="MainWindow" /> class.
     /// </summary>
     public MainWindow()
     {
+        InitializingServices(out var services1, out var services2);
+
         InitializeComponent();
+    }
+
+    /// <summary>
+    /// Initializings the services.
+    /// </summary>
+    /// <param name="services1">The services1.</param>
+    /// <param name="services2">The services2.</param>
+    private void InitializingServices(out IServiceCollection services1, out IServiceCollection services2)
+    {
+        services1 = new ServiceCollection().AddTransient<IFileService, JsonService>();
+        services2 = new ServiceCollection().AddTransient<IFigureService, FigureService>();
+
+        using var serviceProvider1 = services1.BuildServiceProvider();
+        using var serviceProvider2 = services2.BuildServiceProvider();
+
+        _jsonService = serviceProvider1.GetService<IFileService>();
+        _figureService = serviceProvider2.GetService<IFigureService>();
     }
 
     /// <summary>
