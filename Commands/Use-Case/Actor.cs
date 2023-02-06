@@ -19,6 +19,7 @@ public class Actor : IElement
     /// <summary>Initializes a new instance of the <see cref="T:Commands.Use_Case.Actor" /> class.</summary>
     public Actor()
     {
+    
         Id = Count - 1;
     }
 }
