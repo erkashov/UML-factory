@@ -1,9 +1,11 @@
 ﻿namespace Commands.Use_Case;
 
 /// <summary>
-/// Interface IElement
+/// Class SystemBoundary.
+/// Implements the <see cref="Commands.Use_Case.IElement" />
 /// </summary>
-public interface IElement
+/// <seealso cref="Commands.Use_Case.IElement" />
+public class SystemBoundary : IElement
 {
     /// <summary>
     /// Gets or sets the identifier.
@@ -28,4 +30,16 @@ public interface IElement
     /// </summary>
     /// <value>The y.</value>
     public double Y { get; set; }
+
+    /// <summary>
+    /// Gets or sets the w.
+    /// </summary>
+    /// <value>The w.</value>
+    public double W { get; set; }
+
+    /// <summary>
+    /// Gets or sets the h.
+    /// </summary>
+    /// <value>The h.</value>
+    public double H { get; set; }
 }

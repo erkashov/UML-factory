@@ -7,21 +7,61 @@ using Client.Services.Figure;
 
 namespace Client.Services.File;
 
-public class JsonService
+/// <summary>
+/// Interface IFileService
+/// </summary>
+public interface IFileService
 {
+    /// <summary>
+    /// Opens the json.
+    /// </summary>
+    /// <param name="diagram">The diagram.</param>
+    /// <param name="imgDiagram">The img diagram.</param>
+    /// <returns>Task.</returns>
+    Task OpenJSON(Diagram? diagram, Panel imgDiagram);
+
+    /// <summary>
+    /// Saves the json.
+    /// </summary>
+    /// <param name="diagram">The diagram.</param>
+    /// <param name="imgDiagram">The img diagram.</param>
+    /// <returns>Task.</returns>
+    Task SaveJSON(Diagram? diagram, Panel imgDiagram);
+}
+
+/// <summary>
+/// Class JsonService.
+/// </summary>
+public class JsonService : IFileService
+{
+    /// <summary>
+    /// The figure service
+    /// </summary>
     private readonly FigureService _figureService;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="JsonService" /> class.
+    /// </summary>
     public JsonService()
     {
 
     }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="JsonService" /> class.
+    /// </summary>
+    /// <param name="figureService">The figure service.</param>
     public JsonService(FigureService figureService)
     {
         _figureService = figureService;
     }
 
-    public async Task OpenJSON(Diagram? diagram, Panel ImgDiagram)
+    /// <summary>
+    /// Opens the json.
+    /// </summary>
+    /// <param name="diagram">The diagram.</param>
+    /// <param name="imgDiagram">The img diagram.</param>
+    public async Task OpenJSON(Diagram? diagram, Panel imgDiagram)
     {
         var saves = new Microsoft.Win32.OpenFileDialog()
         {
@@ -32,14 +72,20 @@ public class JsonService
         {
             using (var fileStream = new FileStream(saves.FileName, FileMode.OpenOrCreate))
             {
+                //todo: Исправить исключение при загрузке JSON
                 diagram = await JsonSerializer.DeserializeAsync<Diagram>(fileStream);
 
-                _figureService.DrawShapes(diagram, ImgDiagram);
+                _figureService.DrawShapes(diagram, imgDiagram);
             }
         }
     }
 
-    public async Task SaveJSON(Diagram? diagram, Panel ImgDiagram)
+    /// <summary>
+    /// Saves the json.
+    /// </summary>
+    /// <param name="diagram">The diagram.</param>
+    /// <param name="imgDiagram">The img diagram.</param>
+    public async Task SaveJSON(Diagram? diagram, Panel imgDiagram)
     {
         var saves = new Microsoft.Win32.SaveFileDialog
         {
@@ -48,9 +94,9 @@ public class JsonService
         };
         if (saves.ShowDialog() == true)
         {
-            using (var fileStream = new FileStream(saves.FileName, FileMode.OpenOrCreate))
+            await using (var fileStream = new FileStream(saves.FileName, FileMode.OpenOrCreate))
             {
-                await JsonSerializer.SerializeAsync(fileStream, diagram.Elements);
+                await JsonSerializer.SerializeAsync(fileStream, diagram?.Elements);
             }
         }
     }

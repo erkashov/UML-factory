@@ -10,4 +10,10 @@
     <ProjectReference Include="..\Commands\Commands.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="System.Windows.Forms.Primitives">
+      <HintPath>..\..\..\..\..\..\Program Files\dotnet\packs\Microsoft.WindowsDesktop.App.Ref\6.0.12\ref\net6.0\System.Windows.Forms.Primitives.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

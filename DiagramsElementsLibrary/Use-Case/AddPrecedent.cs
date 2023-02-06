@@ -19,6 +19,7 @@ public class AddPrecedent : IFigure
     /// </summary>
     /// <value>The x.</value>
     public double X { get; set; }
+
     /// <summary>
     /// Gets or sets the y.
     /// </summary>
@@ -44,6 +45,7 @@ public class AddPrecedent : IFigure
     /// <summary>Gets or sets the actual offset.</summary>
     /// <value>The actual offset.</value>
     public double ActualOffset { get; set; } = 20;
+
     /// <summary>
     /// Draws this instance.
     /// </summary>
@@ -51,7 +53,7 @@ public class AddPrecedent : IFigure
     /// <param name="panel">The panel.</param>
     /// <param name="numberOfElements">The number of elements.</param>
     /// <returns>StackPanel.</returns>
-    public Panel Draw(IElement element, Panel panel, int numberOfElements)
+    public void Draw(IElement element, Panel panel, int numberOfElements)
     {
         SizeAdaptation(panel, numberOfElements);
 
@@ -69,9 +71,16 @@ public class AddPrecedent : IFigure
         canvas.Children.Add(ellipse);
 
         var count = canvas.Children.Count;
-        Canvas.SetLeft(canvas.Children[count - 1], panel.ActualWidth * 2 / 3);
-        Canvas.SetTop(canvas.Children[count - 1], panel.ActualHeight * element.Id / numberOfElements);
 
+        element.X = panel.ActualWidth * 2 / 3;
+        element.Y = panel.ActualHeight * element.Id / numberOfElements;
+        ((element as Precedent)!).W = W;
+        ((element as Precedent)!).H = H;
+
+        Canvas.SetLeft(canvas.Children[count - 1], element.X);
+        Canvas.SetTop(canvas.Children[count - 1], element.Y);
+
+        element.Y += H / 2; 
         #endregion
 
         #region TextBlock
@@ -91,8 +100,6 @@ public class AddPrecedent : IFigure
         Canvas.SetTop(canvas.Children[count], panel.ActualHeight * element.Id / numberOfElements + ellipse.Height / 2 - textBlock.Height / 2);
 
         #endregion
-
-        return canvas;
     }
 
     /// <summary>Sizes the adaptation.</summary>
